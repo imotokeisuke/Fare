@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>交通費計算アプリ</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, button { padding: 0.5rem; margin: 0.5rem 0; }
+    #result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>交通費計算アプリ（定期考慮）</h2>
+
+  <form id="fare-form">
+    出発駅：<input type="text" id="from" required><br>
+    到着駅：<input type="text" id="to" required><br>
+    <button type="submit">運賃を計算</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const fares = {
+      "新宿-渋谷": 200,
+      "新宿-池袋": 160,
+      "渋谷-上野": 220,
+      "池袋-上野": 250
+    };
+
+    const commuterPass = ["新宿", "池袋"]; // 定期区間
+
+    document.getElementById("fare-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const from = document.getElementById("from").value.trim();
+      const to = document.getElementById("to").value.trim();
+      const key = `${from}-${to}`;
+      const reverseKey = `${to}-${from}`;
+      const resultDiv = document.getElementById("result");
+
+      if (commuterPass.includes(from) &&
